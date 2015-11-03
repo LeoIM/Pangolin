@@ -4,26 +4,34 @@
 window.addEventListener('resize', function(){renderer.setSize( window.innerWidth, window.innerHeight );
 }, true);
 
+var camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+camera.position.y = 2;
+camera.position.z = 5;
+//TODO: comment this shizzle out once we have working camera system
 var mapsLoaded=[];
 function pLoad(map){
   if(mapsLoaded.length==0){
-    var scene = new THREE.Scene();
-    var renderer = new THREE.WebGLRenderer()
+    scene = new THREE.Scene();
+    renderer = new THREE.WebGLRenderer()
     renderer.setSize( window.innerWidth, window.innerHeight );
-    render();
-  }
-  
-  mapsLoaded=mapsLoaded.concat(map);
-  map.onLoad();
-};
+    document.body.appendChild( renderer.domElement );
 
+    pLoop();
+  }
+  mapsLoaded=mapsLoaded.concat(map);
+  for(var pObj in map.entities){
+    //console.log(pObj);
+    if(map.entities.threeObj){
+      scene.add(map.entities.threeObj);
+    }
+  }
+  //map.onLoad();
+};
 function pLoop(){
-  //get pDeltaTime
+  requestAnimationFrame(pLoop);
+  renderer.render( scene, camera );
 }
-function render() {
-	requestAnimationFrame( render );
-	renderer.render( scene, camera );
-}
+
 var pMap=function(options){
   this.entities=options.entities||[];
   this.onLoad=options.loadFunction||function(){}
@@ -62,6 +70,8 @@ var pObject=function(options){
 }
 
 var pEntity=function(options){
+  pObject.call(this,options);
+  //inherits properties of pObject called with same options - MUST BE BEFORE OTHER DECLARATIONS
 
   this.scl=options.scl||[1,1,1];
   //scale                x,y,z
@@ -88,22 +98,11 @@ var pEntity=function(options){
   this.mesh=new THREE.Mesh(this.geometry,this.material);
   this.threeObj=this.mesh;
 }
-pInherit(pEntity,pObject);
 
 var pPointLight =function(options){
+  pObject.call(this,options);
   this.brightness=options.brightness||100;
   this.color=options.color;
   //hexadecimal format '#FFFFFF'
   this.range=options.range||5;
 }
-pInherit(pPointLight,pObject);
-
-var pCube =function(size,options){
-  this.mesh=new THREE.Mesh( geometry, material );
-}
-pInherit(pCube,pEntity);
-
-var pInherit = function (child, parent) {
-  //http://www.sitepoint.com/simple-inheritance-javascript/
-    child.prototype = Object.create(parent.prototype);
-};
