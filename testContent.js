@@ -5,7 +5,24 @@ blueCube=function(){
     name:"Blue Cube",
     geometry:new THREE.BoxGeometry( 1, 1, 1 ),
     material:new THREE.MeshBasicMaterial( { color: 0x0000ff } ),
-    tickFunction:function(){}
+    tickFunction:function(){
+      var vect=[0,0]
+
+      if(keysDown[87]){
+        vect[1]+=0.5;
+      }
+      if(keysDown[83]){
+        vect[1]-=0.5;
+      }
+      if(keysDown[65]){
+        vect[0]-=0.5;
+      }
+      if(keysDown[68]){
+        vect[0]+=0.5;
+      }
+      console.log(vect);
+      this.move([vect[0],vect[1],0])
+    }
   });
 
 greenCube=function(){

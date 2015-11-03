@@ -16,8 +16,10 @@ document.onkeyup=function(event){
 };
 //INPUT MANAGER ------------------------------------------------------------------------------------
 
+//KEEPS GAME FILLING WINDOW ------------------------------------------------------------------------
 window.addEventListener('resize', function(){renderer.setSize( window.innerWidth, window.innerHeight );
 }, true);
+//KEEPS GAME FILLING WINDOW ------------------------------------------------------------------------
 
 var camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.position.y = 2;
