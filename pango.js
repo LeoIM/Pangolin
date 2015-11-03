@@ -1,12 +1,16 @@
 //pango.js
 //z is up
-var
-function mainLoop(){
-
+var currentMap;
+function pLoop(){
+  //get pDeltaTime
 
 }
 
+var pMap=function(options){
+}
+
 var pObject=function(options){
+  this.name=
   this.pos=options.pos||[0,0,0];
   //position             x,y,z
   this.rot=options.rot||[0,0,0];
@@ -29,7 +33,7 @@ var pEntity=function(options){
   this.collider=options.collider||undefined;
   //leave undefined for no collision
 }
-pangoInherit(pEntity,pObject);
+pInherit(pEntity,pObject);
 
 var pPointLight =function(options){
   this.brightness=options.brightness||100;
@@ -39,7 +43,7 @@ var pPointLight =function(options){
   this.range=options.range||5;
   //i think this is a thing three will want?
 }
-pangoInherit(pPointLight,pObject);
+pInherit(pPointLight,pObject);
 
 var pInherit = function (child, parent) {
   //http://www.sitepoint.com/simple-inheritance-javascript/
