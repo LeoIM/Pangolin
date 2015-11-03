@@ -1,6 +1,21 @@
 //pango.js
 //z is up
 
+//INPUT MANAGER ------------------------------------------------------------------------------------
+var keysDown=[];
+for(var keyCycle=0;keyCycle<222;keyCycle++){
+  keysDown[keyCycle]=false;
+}
+document.onkeydown=function(event){
+  //if(keysDown[event.keyCode]==false){console.log("Pressed "+event.keyCode);}
+  keysDown[event.keyCode]=true;
+};
+document.onkeyup=function(event){
+  //if(keysDown[event.keyCode]==true){console.log("Released "+event.keyCode);}
+  keysDown[event.keyCode]=false;
+};
+//INPUT MANAGER ------------------------------------------------------------------------------------
+
 window.addEventListener('resize', function(){renderer.setSize( window.innerWidth, window.innerHeight );
 }, true);
 
@@ -15,30 +30,39 @@ function pLoad(map){
     renderer = new THREE.WebGLRenderer()
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
-
     pLoop();
   }
   mapsLoaded=mapsLoaded.concat(map);
   for(var pObj in map.entities){
-    //console.log(pObj);
-    if(map.entities.threeObj){
-      scene.add(map.entities.threeObj);
+    console.log(map.entities[pObj]);
+    if(map.entities[pObj].threeObj){
+      scene.add(map.entities[pObj].threeObj);
+      map.entities[pObj].threeSyncTransform();
+
     }
   }
-  //map.onLoad();
+  map.loadFunction();
 };
 function pLoop(){
   requestAnimationFrame(pLoop);
+  for(var map in mapsLoaded){
+    for(var ent in mapsLoaded[map].entities){
+      if (mapsLoaded[map].entities[ent].tickFunction){
+        mapsLoaded[map].entities[ent].tickFunction();
+      }
+    }
+  }
   renderer.render( scene, camera );
 }
 
-var pMap=function(options){
+function pMap(options){
+  var options = options || {};
   this.entities=options.entities||[];
-  this.onLoad=options.loadFunction||function(){}
-
+  this.loadFunction=options.loadFunction||function(){}
 }
 
-var pObject=function(options){
+function pObject(options){
+  var options = options || {};
   this.name=options.name||"Untitled";
   this.pos=options.pos||[0,0,0];
   //position             x,y,z
@@ -48,28 +72,34 @@ var pObject=function(options){
   this.children=options.children||[];
   this.threeObj=options.threeObj||undefined;
   this.move=function(pos,rot){
-    this.threeObj.position.x+=pos[0];
-    this.threeObj.position.y+=pos[2];
-    this.threeObj.position.z+=pos[1];
+    this.pos[0]+=pos[0];
+    this.pos[2]+=pos[2];
+    this.pos[1]+=pos[1];
     if(rot){
-      this.threeObj.rotation.x+=pos[0];
-      this.threeObj.rotation.y+=pos[1];
-      this.threeObj.rotation.z+=pos[2];
+      this.rot[0]+=rot[0];
+      this.rot[1]+=rot[1];
+      this.rot[2]+=rot[2];
     }
   }
   this.moveTo=function(pos,rot){
-    this.threeObj.position.x=pos[0];
-    this.threeObj.position.y=pos[2];
-    this.threeObj.position.z=pos[1];
+    this.pos=pos;
     if(rot){
-      this.threeObj.rotation.x=rot[0];
-      this.threeObj.rotation.y=rot[1];
-      this.threeObj.rotation.z=rot[2];
+      this.rot=rot;
     }
+    this.threeSyncTransform();
+  }
+  this.threeSyncTransform=function(){
+    this.threeObj.position.x=this.pos[0];
+    this.threeObj.position.y=this.pos[2];
+    this.threeObj.position.z=this.pos[1];
+    this.threeObj.rotation.x=this.rot[0];
+    this.threeObj.rotation.y=this.rot[1];
+    this.threeObj.rotation.z=this.rot[2];
   }
 }
 
-var pEntity=function(options){
+function pEntity(options){
+  var options = options || {};
   pObject.call(this,options);
   //inherits properties of pObject called with same options - MUST BE BEFORE OTHER DECLARATIONS
 
@@ -99,7 +129,8 @@ var pEntity=function(options){
   this.threeObj=this.mesh;
 }
 
-var pPointLight =function(options){
+function pPointLight(){
+  var options = options || {};
   pObject.call(this,options);
   this.brightness=options.brightness||100;
   this.color=options.color;
