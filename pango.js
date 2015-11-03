@@ -6,7 +6,7 @@ function mainLoop(){
 
 }
 
-var GameObject=function(options){
+var pObject=function(options){
   this.pos=options.pos||[0,0,0];
   //position             x,y,z
   this.rot=options.rot||[0,0,0];
@@ -15,7 +15,7 @@ var GameObject=function(options){
   this.children=options.children||[];
 }
 
-var PangoEntity=function(options){
+var pEntity=function(options){
 
   this.scl=options.scl||[1,1,1];
   //scale                x,y,z
@@ -29,9 +29,9 @@ var PangoEntity=function(options){
   this.collider=options.collider||undefined;
   //leave undefined for no collision
 }
-pangoInherit(PangoEntity,GameObject);
+pangoInherit(pEntity,pObject);
 
-var PointLightObject =function(options){
+var pPointLight =function(options){
   this.brightness=options.brightness||100;
   this.color=options.color;
   //TODO: find if three.js wants [1,1,1] or '#FFFFFF'
@@ -39,9 +39,9 @@ var PointLightObject =function(options){
   this.range=options.range||5;
   //i think this is a thing three will want?
 }
-pangoInherit(PointLightObject,GameObject);
+pangoInherit(pPointLight,pObject);
 
-var pangoInherit = function (child, parent) {
+var pInherit = function (child, parent) {
   //http://www.sitepoint.com/simple-inheritance-javascript/
     child.prototype = Object.create(parent.prototype);
 };
