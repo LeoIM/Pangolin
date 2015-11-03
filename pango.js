@@ -1,16 +1,21 @@
 //pango.js
-
 //z is up
+var
+function mainLoop(){
 
-var GameObj=function(options){
+
+}
+
+var GameObject=function(options){
   this.pos=options.pos||[0,0,0];
   //position             x,y,z
   this.rot=options.rot||[0,0,0];
   //rotation
+  this.tickFunction=options.tickFunction||undefined;
   this.children=options.children||[];
 }
 
-var Entity=function(options){
+var PangoEntity=function(options){
 
   this.scl=options.scl||[1,1,1];
   //scale                x,y,z
@@ -24,9 +29,9 @@ var Entity=function(options){
   this.collider=options.collider||undefined;
   //leave undefined for no collision
 }
-inherit(Entity,GameObj);
+pangoInherit(PangoEntity,GameObject);
 
-var PointLight=function(options){
+var PointLightObject =function(options){
   this.brightness=options.brightness||100;
   this.color=options.color;
   //TODO: find if three.js wants [1,1,1] or '#FFFFFF'
@@ -34,20 +39,9 @@ var PointLight=function(options){
   this.range=options.range||5;
   //i think this is a thing three will want?
 }
-inherit(PointLight,GameObj);
+pangoInherit(PointLightObject,GameObject);
 
-var SpotLight=function(options){
-  this.brightness=options.brightness||100;
-  this.color=options.color;
-  //TODO: find if three.js wants [1,1,1] or '#FFFFFF'
-  this.fov=options.fov||30;
-  this.range=options.range||5;
-  //i think this is a thing three will want?
-}
-inherit(SpotLight,GameObj);
-
-
-var inherit = function (child, parent) {
+var pangoInherit = function (child, parent) {
   //http://www.sitepoint.com/simple-inheritance-javascript/
     child.prototype = Object.create(parent.prototype);
 };
