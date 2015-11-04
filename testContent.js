@@ -9,19 +9,19 @@ blueCube=function(){
       var vect=[0,0]
 
       if(keysDown[87]){
-        vect[1]+=0.5;
+        vect[1]+=0.05;
       }
       if(keysDown[83]){
-        vect[1]-=0.5;
+        vect[1]-=0.05;
       }
       if(keysDown[65]){
-        vect[0]-=0.5;
+        vect[0]-=0.05;
       }
       if(keysDown[68]){
-        vect[0]+=0.5;
+        vect[0]+=0.05;
       }
-      console.log(vect);
-      this.move([vect[0],vect[1],0])
+      console.log(this.pos);
+      this.move([vect[0],vect[1],0]);
     }
   });
 

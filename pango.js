@@ -82,6 +82,7 @@ function pObject(options){
       this.rot[1]+=rot[1];
       this.rot[2]+=rot[2];
     }
+    this.threeSyncTransform();
   }
   this.moveTo=function(pos,rot){
     this.pos=pos;
