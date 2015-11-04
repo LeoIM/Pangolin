@@ -4,7 +4,7 @@ blueCube=function(){
   blueCube.prototype=new pEntity({
     name:"Blue Cube",
     geometry:new THREE.BoxGeometry( 1, 1, 1 ),
-    material:new THREE.MeshBasicMaterial( { color: 0x0000ff } ),
+    material:new THREE.MeshLambertMaterial( { color: 0x0000ff } ),
     tickFunction:function(){
       var vect=[0,0]
 
@@ -20,7 +20,6 @@ blueCube=function(){
       if(keysDown[68]){
         vect[0]+=0.05;
       }
-      console.log(this.pos);
       this.move([vect[0],vect[1],0]);
     }
   });
@@ -31,7 +30,7 @@ greenCube=function(){
     name:"Green Cube",
     pos:[2,0,0],
     geometry:new THREE.BoxGeometry( 1, 1, 1 ),
-    material:new THREE.MeshBasicMaterial( { color: 0x00ff00 } ),
+    material:new THREE.MeshLambertMaterial( { color: 0x00ff00 } ),
   });
 
 testMap=function(){
@@ -41,6 +40,7 @@ testMap=function(){
   });
   testMap.entities=testMap.entities.concat(new blueCube());
   testMap.entities=testMap.entities.concat(new greenCube());
+  testMap.entities=testMap.entities.concat(new pPointLight({color:"0xFFFFFF",brightness:2,range:10,pos:[2,2,2]}));
 
 testMap.loadFunction=function(){
 }

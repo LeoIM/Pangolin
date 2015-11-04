@@ -108,8 +108,6 @@ function pEntity(options){
 
   this.scl=options.scl||[1,1,1];
   //scale                x,y,z
-
-  this.doesRender=options.doesRender||true;
   this.geometry=options.geometry||undefined;
   this.material=options.material||undefined;
   //all must return true to render
@@ -132,11 +130,12 @@ function pEntity(options){
   this.threeObj=this.mesh;
 }
 
-function pPointLight(){
+function pPointLight(options){
   var options = options || {};
   pObject.call(this,options);
-  this.brightness=options.brightness||100;
-  this.color=options.color;
+  this.brightness=options.brightness||10;
+  this.color=options.color||"0xFFFFFF";
   //hexadecimal format '#FFFFFF'
   this.range=options.range||5;
+  this.threeObj=new THREE.PointLight(this.color,this.brightness,this.range);
 }
