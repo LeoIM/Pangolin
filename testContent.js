@@ -49,11 +49,10 @@ testMap=function(){
     entities:[]
   });
   testMap.entities=testMap.entities.concat(new blueCube());
-  testMap.entities=testMap.entities.concat(new greenCube());
-  testMap.entities=testMap.entities.concat(new pPointLight({color:0xffffff,brightness:2,range:10,pos:[2,2,2]}));
+  testMap.entities=testMap.entities.concat(new pPointLight({color:0x000000,brightness:2,range:10,pos:[2,2,2]}));
 testMap.loadFunction=function(){
 }
 
 testMap2=function(){}
 testMap2=new pMap({entities:[]});
-testMap.entities=testMap.entities.concat(new pPointLight({color:0xFFE4AD,brightness:2,range:10,pos:[1,1,2]}))
+testMap2.entities=testMap2.entities.concat(new greenCube())
