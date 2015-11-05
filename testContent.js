@@ -51,6 +51,7 @@ testMap=function(){
   testMap.entities=testMap.entities.concat(new blueCube());
   testMap.entities=testMap.entities.concat(new pPointLight({color:0x000000,brightness:2,range:10,pos:[2,2,2]}));
 testMap.loadFunction=function(){
+  pLoad(testMap2);
 }
 
 testMap2=function(){}
