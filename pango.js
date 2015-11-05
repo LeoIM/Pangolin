@@ -1,26 +1,6 @@
 //pango.js
 //z is up
 
-//INPUT MANAGER ------------------------------------------------------------------------------------
-var keysDown=[];
-for(var keyCycle=0;keyCycle<222;keyCycle++){
-  keysDown[keyCycle]=false;
-}
-document.onkeydown=function(event){
-  //if(keysDown[event.keyCode]==false){console.log("Pressed "+event.keyCode);}
-  keysDown[event.keyCode]=true;
-};
-document.onkeyup=function(event){
-  //if(keysDown[event.keyCode]==true){console.log("Released "+event.keyCode);}
-  keysDown[event.keyCode]=false;
-};
-//INPUT MANAGER ------------------------------------------------------------------------------------
-
-//KEEPS GAME FILLING WINDOW ------------------------------------------------------------------------
-window.addEventListener('resize', function(){renderer.setSize( window.innerWidth, window.innerHeight );
-}, true);
-//KEEPS GAME FILLING WINDOW ------------------------------------------------------------------------
-
 var camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.position.y = 2;
 camera.position.z = 5;
@@ -36,15 +16,28 @@ function pLoad(map){
   }
   mapsLoaded=mapsLoaded.concat(map);
   for(var pObj in map.entities){
-    console.log(map.entities[pObj]);
+    //console.log(map.entities[pObj]);
     if(map.entities[pObj].threeObj){
       scene.add(map.entities[pObj].threeObj);
       map.entities[pObj].threeSyncTransform();
-
+      loadChildren(map.entities[pObj]);
     }
   }
   map.loadFunction();
 };
+
+function loadChildren(pObj){
+  if(pObj.children.length>0){
+    for(var pChild in pObj.children){
+      //console.log(pObj.children[pObj]);
+      if(pObj.children[pChild].threeObj){
+        pObj.threeObj.add(pObj.children[pChild].threeObj);
+        pObj.children[pChild].threeSyncTransform();
+      }
+      loadChildren(pObj.children[pChild]);
+    }
+  }
+}
 function pLoop(){
   requestAnimationFrame(pLoop);
   for(var map in mapsLoaded){
@@ -52,6 +45,7 @@ function pLoop(){
       if (mapsLoaded[map].entities[ent].tickFunction){
         mapsLoaded[map].entities[ent].tickFunction();
       }
+      //if ()
     }
   }
   renderer.render( scene, camera );
@@ -134,7 +128,7 @@ function pPointLight(options){
   var options = options || {};
   pObject.call(this,options);
   this.brightness=options.brightness||10;
-  this.color=options.color||"0xFFFFFF";
+  this.color=options.color||0xffffff;
   //hexadecimal format '#FFFFFF'
   this.range=options.range||5;
   this.threeObj=new THREE.PointLight(this.color,this.brightness,this.range);
