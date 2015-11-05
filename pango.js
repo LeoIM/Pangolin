@@ -2,9 +2,10 @@
 //z is up
 
 var camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+console.log(camera);
 camera.position.y = 2;
 camera.position.z = 5;
-//TODO: comment this shizzle out once we have working camera system
+//TODO: comment this out once we have working camera system
 var mapsLoaded=[];
 function pLoad(map){
   if(mapsLoaded.length==0){
@@ -132,4 +133,14 @@ function pPointLight(options){
   //hexadecimal format '#FFFFFF'
   this.range=options.range||5;
   this.threeObj=new THREE.PointLight(this.color,this.brightness,this.range);
+}
+function pPerspectiveCamera(options){
+  var options = options || {};
+  pObject.call(this,options);
+  this.fov=options.fov||90;
+  this.nearClippingPlane||0.1;
+  this.farClippingPlane||1000;
+
+  this.threeObj=new THREE.PerspectiveCamera(this.fov,window.innerWidth/window.innerHeight,this.nearClippingPlane,this.farClippingPlane );
+  console.log(this.threeObj);
 }
