@@ -5,7 +5,14 @@
 		<title>Pangolin Project</title>
 		<style>
 			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
+			canvas { width: 100%; height: 100%;
+			      image-rendering: optimizeSpeed;
+			      image-rendering: -moz-crisp-edges;
+			      image-rendering: -webkit-optimize-contrast;
+			      image-rendering: -o-crisp-edges;
+			      image-rendering: pixelated;
+			      -ms-interpolation-mode: nearest-neighbor;
+						}
 		</style>
 	</head>
 	<body onload="pLoad(testMap)">
