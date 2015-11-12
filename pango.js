@@ -11,8 +11,8 @@ function pLoad(map){
   if(mapsLoaded.length==0){
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer()
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    document.body.appendChild( renderer.domElement );
+    renderer.setSize( document.getElementById("renderWindow").clientWidth, document.getElementById("renderWindow").clientHeight );
+    document.getElementById("renderWindow").appendChild( renderer.domElement );
     pLoop();
   }
   mapsLoaded=mapsLoaded.concat(map);
@@ -137,7 +137,7 @@ function pPointLight(options){
 function pPerspectiveCamera(options){
   var options = options || {};
   pObject.call(this,options);
-  this.fov=options.fov||90;
+  this.fov=options.fov||70;
   this.nearClippingPlane||0.1;
   this.farClippingPlane||1000;
 

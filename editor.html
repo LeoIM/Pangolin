@@ -4,7 +4,7 @@
 		<meta charset=utf-8>
 		<title>Pangolin Project</title>
 		<style>
-			body { margin: 0; }
+			body { margin: 0; height: 100%; }
 			canvas { width: 100%; height: 100%;
 			      image-rendering: optimizeSpeed;
 			      image-rendering: -moz-crisp-edges;
@@ -13,14 +13,18 @@
 			      image-rendering: pixelated;
 			      -ms-interpolation-mode: nearest-neighbor;
 						}
+			html{
+    		height: 100%;
+			}
+			edRenderWindow{
+				width: 100%; height: 50%;
+			}
 		</style>
 	</head>
 	<body onload="pLoad(testMap)">
 		<div class="edRenderWindow" id="renderWindow"></div>
-		<script src="libraries/three.js"></script>
-    <script src="pango.js"></script>
-		<script src="pangoInput.js"></script>
-    <script src="testContent.js"></script>
-
-  </body>
+		<div id="loadDiv">
+		<script src="load.js"></script>
+		</div>
+	</body>
 </html>
