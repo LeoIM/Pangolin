@@ -11,8 +11,19 @@ function pLoad(map){
   if(mapsLoaded.length==0){
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer()
-    renderer.setSize( document.getElementById("renderWindow").clientWidth, document.getElementById("renderWindow").clientHeight );
-    document.getElementById("renderWindow").appendChild( renderer.domElement );
+    if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1)=="editor.html"){
+      renderer.setSize( window.innerWidth, window.innerHeight/2 );
+      document.getElementById("renderWindow").appendChild( renderer.domElement );
+      camera.aspect = window.innerWidth / (window.innerHeight/2);
+      camera.updateProjectionMatrix();
+    }
+    else{
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild( renderer.domElement );
+      camera.aspect = window.innerWidth / (window.innerHeight);
+      camera.updateProjectionMatrix();
+
+    }
     pLoop();
   }
   mapsLoaded=mapsLoaded.concat(map);

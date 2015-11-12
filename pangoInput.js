@@ -15,6 +15,15 @@ document.onkeyup=function(event){
 //INPUT MANAGER ------------------------------------------------------------------------------------
 
 //KEEPS GAME FILLING WINDOW ------------------------------------------------------------------------
-window.addEventListener('resize', function(){renderer.setSize( window.innerWidth, window.innerHeight );
+window.addEventListener('resize', function(){
+if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1)=="editor.html"){
+  renderer.setSize( window.innerWidth, window.innerHeight/2 );
+  camera.aspect = window.innerWidth / (window.innerHeight/2);
+  camera.updateProjectionMatrix();
+return;
+}
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
 }, true);
 //KEEPS GAME FILLING WINDOW ------------------------------------------------------------------------
