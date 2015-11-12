@@ -52,13 +52,15 @@ function loadChildren(pObj){
 }
 function pLoop(){
   requestAnimationFrame(pLoop);
-  for(var map in mapsLoaded){
-    for(var ent in mapsLoaded[map].entities){
-      if (mapsLoaded[map].entities[ent].tickFunction){
-        mapsLoaded[map].entities[ent].tickFunction();
-      }
+  if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1)!="editor.html"){
+    for(var map in mapsLoaded){
+      for(var ent in mapsLoaded[map].entities){
+        if (mapsLoaded[map].entities[ent].tickFunction){
+          mapsLoaded[map].entities[ent].tickFunction();
+        }
       //if ()
-    }
+      }
+  }
   }
   renderer.render( scene, camera );
 }
