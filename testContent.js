@@ -5,7 +5,7 @@ yellowCube=function(){
     name:"Yellow Cube",
     pos:[2,0,0],
     geometry:new THREE.BoxGeometry( 1, 1, 1 ),
-    material:new THREE.MeshLambertMaterial( { color: 0xfffff0 } ),
+    material:new THREE.MeshLambertMaterial( { color: 0xffff00 } ),
   });
 topCamera=function(){}
   topCamera.prototype=new pPerspectiveCamera({
@@ -50,7 +50,8 @@ greenCube.prototype= new pEntity({
 testMap=function(){
 }
   testMap=new pMap({
-    entities:[]
+    entities:[],
+    name:"Test Map 1"
   });
   testMap.entities=testMap.entities.concat(new blueCube());
   camera=testMap.entities[0].children[1].threeObj;
@@ -61,5 +62,5 @@ testMap.loadFunction=function(){
 }
 
 testMap2=function(){}
-testMap2=new pMap({entities:[]});
+testMap2=new pMap({name:"Test Map 2",entities:[]});
 testMap2.entities=testMap2.entities.concat(new greenCube())

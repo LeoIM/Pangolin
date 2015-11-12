@@ -1,18 +1,31 @@
 //pangoEd.js
 
 function updateSceneObjectTable(){
-  tableBuffer="";
+  tableBuffer="<tr><td>Name</td><td>Position</td><td>Rotation</td><td>Parent</td></tr>";
   var currentEnt;
   for(var map in mapsLoaded){
     for(var ent in mapsLoaded[map].entities){
-      currentEnt=mapsLoaded[map].entities[ent];
-      tableBuffer+="<tr>";
-        tableBuffer+="<td>"+currentEnt.name+"</td>"
-      tableBuffer+="</tr>"
+      tableBuffer+=objectTableRow(mapsLoaded[map].entities[ent],mapsLoaded[map])
     }
   }
   document.getElementById("edTable").innerHTML=tableBuffer;
 }
+function objectTableRow(ent,map){
+  rowBuffer="";
+  rowBuffer+="<tr>";
+    rowBuffer+="<td>"+ent.name+"</td>"
+    rowBuffer+="<td>"+ent.pos[0]+", "+ent.pos[1]+", "+ent.pos[2]+"</td>"
+    rowBuffer+="<td>"+ent.rot[0]+", "+ent.rot[1]+", "+ent.rot[2]+"</td>"
+    rowBuffer+="<td>"+map.name+"</td>"
+  rowBuffer+="</tr>"
+  if (ent.children&&ent.children.length>0){
+    for (var child in ent.children){
+      rowBuffer+=objectTableRow(ent.children[child],ent);
+    }
+  }
+return rowBuffer;
+}
+
 
 ////<tr><td>object name</td><td>amount</td></tr>
 updateSceneObjectTable();

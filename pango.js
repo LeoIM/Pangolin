@@ -69,6 +69,7 @@ function pMap(options){
   var options = options || {};
   this.entities=options.entities||[];
   this.loadFunction=options.loadFunction||function(){}
+  this.name=options.name||"Untitled"
 }
 
 function pObject(options){
@@ -146,6 +147,7 @@ function pPointLight(options){
   //hexadecimal format '#FFFFFF'
   this.range=options.range||5;
   this.threeObj=new THREE.PointLight(this.color,this.brightness,this.range);
+  this.name=options.name||"Point Light";
 }
 function pPerspectiveCamera(options){
   var options = options || {};
@@ -153,7 +155,7 @@ function pPerspectiveCamera(options){
   this.fov=options.fov||70;
   this.nearClippingPlane||0.1;
   this.farClippingPlane||1000;
-
+  this.name=options.name||"Perspective Camera";
   this.threeObj=new THREE.PerspectiveCamera(this.fov,window.innerWidth/window.innerHeight,this.nearClippingPlane,this.farClippingPlane );
   console.log(this.threeObj);
 }
