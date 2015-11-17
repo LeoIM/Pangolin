@@ -1,5 +1,5 @@
 //pangoEd.js
-var selectedObject;
+var selectedObject=mapsLoaded[0].entities[0];
 function updateSceneObjectTable(){
   tableBuffer="<tr><td>Name</td><td>Position</td><td>Rotation</td><td>Parent</td></tr>";
   var currentEnt;
@@ -12,7 +12,7 @@ function updateSceneObjectTable(){
 }
 function objectTableRow(ent,map,mapnum,entnum){
   rowBuffer="";
-  rowBuffer+="<tr>";
+  rowBuffer+="<tr onClick='selectObject(mapsLoaded["+mapnum+"].entities["+entnum+"])'>";
 
     if(ent.children&&ent.children.length>0){
       if(ent.sceneGraphChildrenAreShown){
@@ -41,6 +41,27 @@ return rowBuffer;
 function toggleMinimizeChildren(ent){
   ent.sceneGraphChildrenAreShown=!ent.sceneGraphChildrenAreShown;
   updateSceneObjectTable();
+}
+function toggleVisibility(id){
+  var x = document.getElementById(id);
+  if (x.style.display=='block'){
+    x.style.display='none';
+    return;
+  }
+  x.style.display='block'
+}
+function selectObject(obj){
+  selectedObject=obj;
+  input_pos_x.value=obj.pos.x;
+  input_pos_y.value=obj.pos.y;
+  input_pos_z.value=obj.pos.z;
+}
+function updateSelectedTransform(){
+  selectedObject.moveTo([input_pos_x.value,input_pos_y.value,input_pos_z.value]);
+  updateSceneObjectTable();
+}
+function makeIndexString(object){
+  alert("Error: "+object.name+" has too many parents.")
 }
 
 ////<tr><td>object name</td><td>amount</td></tr>
