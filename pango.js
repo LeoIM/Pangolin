@@ -81,6 +81,7 @@ function pObject(options){
   //rotation
   this.tickFunction=options.tickFunction||undefined;
   this.children=options.children||[];
+  this.sceneGraphChildrenAreShown=true;
   this.threeObj=options.threeObj||undefined;
   this.move=function(pos,rot){
     this.pos[0]+=pos[0];
