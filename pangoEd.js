@@ -10,7 +10,7 @@ function updateSceneObjectTable(){
   }
   document.getElementById("edTable").innerHTML=tableBuffer;
 }
-function objectTableRow(ent,map,mapnum,entnum){
+function objectTableRow(ent,map,mapnum,entnum,parentArray){
   rowBuffer="";
   rowBuffer+="<tr onClick='selectObject(mapsLoaded["+mapnum+"].entities["+entnum+"])'>";
 
@@ -30,11 +30,15 @@ function objectTableRow(ent,map,mapnum,entnum){
     rowBuffer+="<td>"+ent.rot[0]+", "+ent.rot[1]+", "+ent.rot[2]+"</td>"
     rowBuffer+="<td>"+map.name+"</td>"
   rowBuffer+="</tr>"
+
   if (ent.sceneGraphChildrenAreShown&&ent.children&&ent.children.length>0){
+    rowBuffer+="<tr><table><tbody class='subTable'>"
     for (var child in ent.children){
       rowBuffer+=objectTableRow(ent.children[child],ent);
     }
+    rowBuffer+="</tbody></table></tr>"
   }
+
 return rowBuffer;
 }
 
