@@ -1,12 +1,17 @@
 //pango.js
 //z is up
 
+var indexArray=[];
+
 var camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
 console.log(camera);
 camera.position.y = 2;
 camera.position.z = 5;
 //TODO: comment this out once we have working camera system
 var mapsLoaded=[];
+function pNew(object){
+  return Object.assign({},object);
+}
 function pLoad(map){
   if(mapsLoaded.length==0){
     scene = new THREE.Scene();
@@ -109,7 +114,11 @@ function pObject(options){
     this.threeObj.rotation.y=this.rot[1];
     this.threeObj.rotation.z=this.rot[2];
   }
+  console.log(this);
+  indexArray.push(this);
+  this.indexNumber=indexArray.indexOf(this);
 }
+
 
 function pEntity(options){
   var options = options || {};

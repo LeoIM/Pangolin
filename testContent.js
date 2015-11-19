@@ -1,24 +1,20 @@
 //testContent.js
-yellowCube=function(){
-}
-  yellowCube.prototype= new pEntity({
+  yellowCube= new pEntity({
     name:"Yellow Cube",
     pos:[2,0,0],
     geometry:new THREE.BoxGeometry( 1, 1, 1 ),
     material:new THREE.MeshLambertMaterial( { color: 0xffff00 } ),
   });
-topCamera=function(){}
-  topCamera.prototype=new pPerspectiveCamera({
+  topCamera=new pPerspectiveCamera({
     pos:[0,2,5],
     rot:[camera.quaternion.x=-0.8,0,0]
   })
-blueCube=function(){
-}
-  blueCube.prototype=new pEntity({
+
+  blueCube=new pEntity({
     name:"Blue Cube",
     geometry:new THREE.BoxGeometry( 1, 1, 1 ),
     material:new THREE.MeshLambertMaterial( { color: 0x0000ff } ),
-    children:[new yellowCube(),new topCamera()],
+    children:[pNew(yellowCube),pNew(topCamera)],
     tickFunction:function(){
       var vect=[0,0]
 
@@ -37,9 +33,8 @@ blueCube=function(){
       this.move([vect[0],vect[1],0]);
     }
   });
-greenCube=function(){
-}
-greenCube.prototype= new pEntity({
+
+greenCube= new pEntity({
   name:"Green Cube",
   pos:[2,0,0],
   geometry:new THREE.BoxGeometry( 1, 1, 1 ),
@@ -53,14 +48,22 @@ testMap=function(){
     entities:[],
     name:"Test Map 1"
   });
-  testMap.entities=testMap.entities.concat(new blueCube());
+  testMap.entities.push(pNew(blueCube));
   camera=testMap.entities[0].children[1].threeObj;
 
-  testMap.entities=testMap.entities.concat(new pPointLight({color:0x000000,brightness:2,range:10,pos:[2,2,2]}));
+  testMap.entities.push(new pPointLight({color:0x000000,brightness:2,range:10,pos:[2,2,2]}));
 testMap.loadFunction=function(){
   pLoad(testMap2);
 }
 
 testMap2=function(){}
 testMap2=new pMap({name:"Test Map 2",entities:[]});
-testMap2.entities=testMap2.entities.concat(new greenCube())
+testMap2.entities.push(pNew(greenCube))
+
+
+redCube= new pEntity({
+  name:"Red Cube",
+  pos:[2,0,0],
+  geometry:new THREE.BoxGeometry( 1, 1, 1 ),
+  material:new THREE.MeshLambertMaterial( { color: 0x00ff00 } ),
+});

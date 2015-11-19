@@ -1,25 +1,25 @@
 //pangoEd.js
-var selectedObject=mapsLoaded[0].entities[0];
+var selectedObject;
 function updateSceneObjectTable(){
   tableBuffer="<tr><td>Name</td><td>Position</td><td>Rotation</td><td>Parent</td></tr>";
   var currentEnt;
   for(var map in mapsLoaded){
     for(var ent in mapsLoaded[map].entities){
-      tableBuffer+=objectTableRow(mapsLoaded[map].entities[ent],mapsLoaded[map],map,ent)
+      tableBuffer+=objectTableRow(mapsLoaded[map].entities[ent],mapsLoaded[map]);
     }
   }
   document.getElementById("edTable").innerHTML=tableBuffer;
 }
-function objectTableRow(ent,map,mapnum,entnum,parentArray){
+function objectTableRow(ent,map){
   rowBuffer="";
-  rowBuffer+="<tr onClick='selectObject(mapsLoaded["+mapnum+"].entities["+entnum+"])'>";
-
+  //rowBuffer+="<tr onClick='selectObject(mapsLoaded["+mapnum+"].entities["+entnum+"])'>";
+  rowBuffer+="<tr onClick='selectObject(indexArray["+ent.indexNumber+"])'>";
     if(ent.children&&ent.children.length>0){
       if(ent.sceneGraphChildrenAreShown){
-        rowBuffer+="<td><img src='imgsrc/downArrow.png' height='14' width='14' onClick='toggleMinimizeChildren(mapsLoaded["+mapnum+"].entities["+entnum+"])'> "+ent.name+"</td>"
+        rowBuffer+="<td><img src='imgsrc/downArrow.png' height='14' width='14' onClick='toggleMinimizeChildren(indexArray["+ent.indexNumber+"])'> "+ent.name+"</td>"
       }
       else{
-      rowBuffer+="<td><img src='imgsrc/rightArrow.png' height='14' width='14' onClick='toggleMinimizeChildren(mapsLoaded["+mapnum+"].entities["+entnum+"])'> "+ent.name+"</td>"
+      rowBuffer+="<td><img src='imgsrc/rightArrow.png' height='14' width='14' onClick='toggleMinimizeChildren(indexArray["+ent.indexNumber+"])'> "+ent.name+"</td>"
       }
     }
     else{
@@ -55,10 +55,11 @@ function toggleVisibility(id){
   x.style.display='block'
 }
 function selectObject(obj){
+  console.log("selecting "+obj.name);
   selectedObject=obj;
-  input_pos_x.value=obj.pos.x;
-  input_pos_y.value=obj.pos.y;
-  input_pos_z.value=obj.pos.z;
+  document.getElementById(input_pos_x).value=obj.pos.x;
+  document.getElementById(input_pos_y).value=obj.pos.y;
+  document.getElementById(input_pos_z).value=obj.pos.z;
 }
 function updateSelectedTransform(){
   selectedObject.moveTo([input_pos_x.value,input_pos_y.value,input_pos_z.value]);
