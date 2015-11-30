@@ -17,8 +17,8 @@ document.onkeyup=function(event){
 //KEEPS GAME FILLING WINDOW ------------------------------------------------------------------------
 window.addEventListener('resize', function(){
 if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1)=="editor.html"){
-  renderer.setSize( window.innerWidth, window.innerHeight/2 );
-  camera.aspect = window.innerWidth / (window.innerHeight/2);
+  renderer.setSize( window.innerWidth*0.618, window.innerHeight/2 );
+  camera.aspect = (window.innerWidth*0.618) / (window.innerHeight/2);
   camera.updateProjectionMatrix();
 return;
 }

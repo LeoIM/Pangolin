@@ -5,7 +5,7 @@
 		<title>Pangolin Project</title>
 		<style>
 			body { margin: 0; height: 100%; }
-			canvas { width: 100%; height: 100%;
+			canvas { width: 61.8%; height: 100%;
 			      image-rendering: optimizeSpeed;
 			      image-rendering: -moz-crisp-edges;
 			      image-rendering: -webkit-optimize-contrast;
@@ -21,16 +21,20 @@
 				display: inline-block;
 			}
 
-			edRenderWindow{
-				width: 100%; height: 50%;
+			.edRenderWindow{
+				width: 61.8%; height: 50%; float:left;
 			}
-			objectProps{
+			#objectProps{
 				border:1px solid #ccc;
 				display: inline-block;
 			}
 			.subTable{
 				background-color :#bbb;
 			}
+
+			#sceneGraph
+			{}
+
 		</style>
 	</head>
 	<body onload="pLoad(testMap),updateSceneObjectTable()">
@@ -40,14 +44,21 @@
 
 		</div>
 		<button><img src="imgsrc/ed_play0.png"></button>
-		<div class='objectProps'>
+		<div class='objectProps' id='objProps'>
 			<img src='imgsrc/downArrow.png' height='14' width='14' onClick='toggleVisibility("transform")'><span><b> Transform</b></span><br>
 			<div id='transform'>
-			<span>Position</span>
+			<span>Position </span>
 				<input type='number' id='input_pos_x' onChange='updateSelectedTransform()'>
 				<input type='number' id='input_pos_y' onChange='updateSelectedTransform()'>
 				<input type='number' id='input_pos_z' onChange='updateSelectedTransform()'>
+			<br>
+			<span>Rotation</span>
+				<input type='number' id='input_rot_x' onChange='updateSelectedTransform()'>
+				<input type='number' id='input_rot_y' onChange='updateSelectedTransform()'>
+				<input type='number' id='input_rot_z' onChange='updateSelectedTransform()'>
+
 			</div>
+
 		</div>
 		<div id="loadDiv">
 		<script src="load.js"></script>

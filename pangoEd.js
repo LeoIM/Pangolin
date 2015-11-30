@@ -1,5 +1,7 @@
 //pangoEd.js
+
 var selectedObject;
+var selectedHighlight=undefined;
 function updateSceneObjectTable(){
   tableBuffer="<tr><td>Name</td><td>Position</td><td>Rotation</td><td>Parent</td></tr>";
   var currentEnt;
@@ -57,12 +59,20 @@ function toggleVisibility(id){
 function selectObject(obj){
   console.log("selecting "+obj.name);
   selectedObject=obj;
-  document.getElementById(input_pos_x).value=obj.pos.x;
-  document.getElementById(input_pos_y).value=obj.pos.y;
-  document.getElementById(input_pos_z).value=obj.pos.z;
+  document.getElementById("input_pos_x").value=obj.pos[0];
+  document.getElementById("input_pos_y").value=obj.pos[1];
+  document.getElementById("input_pos_z").value=obj.pos[2];
+  document.getElementById("input_rot_x").value=obj.rot[0];
+  document.getElementById("input_rot_y").value=obj.rot[1];
+  document.getElementById("input_rot_z").value=obj.rot[2];
+  if(selectedHighlight!=undefined){scene.remove(selectedHighlight);}
+  if(selectedObject.mesh){
+    //selectedHighlight=new THREE.EdgesHelper( selectedObject.threeObj, 0xffcc00 )
+    scene.add(new THREE.EdgesHelper( selectedObject.threeObj, 0xffcc00 ));
+  }
 }
 function updateSelectedTransform(){
-  selectedObject.moveTo([input_pos_x.value,input_pos_y.value,input_pos_z.value]);
+  selectedObject.moveTo([input_pos_x.value,input_pos_y.value,input_pos_z.value],[input_rot_x.value,input_rot_y.value,input_rot_z.value]);
   updateSceneObjectTable();
 }
 function makeIndexString(object){
