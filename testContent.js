@@ -1,4 +1,5 @@
 //testContent.js
+//content for demo scene, showing the ease of use in creating quick games in the pangolin engine
   yellowCube= new pEntity({
     name:"Yellow Cube",
     pos:[2,0,0],
