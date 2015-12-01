@@ -83,12 +83,10 @@ function selectObject(obj){
   //fills the input boxes for transform with transofrm values for newly selected object
 
   if(selectedHighlight!=undefined){scene.remove(selectedHighlight);}
-  //this doesn't work
-  //TODO: make this work
 
   if(selectedObject.mesh){
-    //selectedHighlight=new THREE.EdgesHelper( selectedObject.threeObj, 0xffcc00 )
-    scene.add(new THREE.EdgesHelper( selectedObject.threeObj, 0xffcc00 ));
+    selectedHighlight=new THREE.EdgesHelper( selectedObject.threeObj, 0xffcc00 );
+    scene.add(selectedHighlight);
     //gives newly selected object a snazzy-looking yellow outline
   }
 }

@@ -136,6 +136,9 @@ function pObject(options){
     this.threeObj.rotation.y=this.rot[1];
     this.threeObj.rotation.z=this.rot[2];
   }
+  this.removeThreeObj=function(){
+    scene.remove(this.threeObj)
+  }
   //upon object creation, adds to indexarray and sets own indexnumber property as position in array
   indexArray.push(this);
   this.indexNumber=indexArray.indexOf(this);
