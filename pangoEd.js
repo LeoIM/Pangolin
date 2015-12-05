@@ -74,13 +74,14 @@ function selectObject(obj){
   console.log("selecting "+obj.name);
   selectedObject=obj;
 
-  document.getElementById("input_pos_x").value=obj.pos[0];
-  document.getElementById("input_pos_y").value=obj.pos[1];
-  document.getElementById("input_pos_z").value=obj.pos[2];
-  document.getElementById("input_rot_x").value=obj.rot[0];
-  document.getElementById("input_rot_y").value=obj.rot[1];
-  document.getElementById("input_rot_z").value=obj.rot[2];
+  document.getElementById("input_pos_x").value = obj.pos[0];
+  document.getElementById("input_pos_y").value = obj.pos[1];
+  document.getElementById("input_pos_z").value = obj.pos[2];
+  document.getElementById("input_rot_x").value = obj.rot[0];
+  document.getElementById("input_rot_y").value = obj.rot[1];
+  document.getElementById("input_rot_z").value = obj.rot[2];
   //fills the input boxes for transform with transofrm values for newly selected object
+
 
   if(selectedHighlight!=undefined){scene.remove(selectedHighlight);}
 
@@ -97,3 +98,12 @@ function updateSelectedTransform(){
 }
 ////<tr><td>object name</td><td>amount</td></tr>
 updateSceneObjectTable();
+
+function generateDeclarationString(object){
+  //for saving in the editor
+  //doesnt work yet
+  strBuffer="";
+  // ()
+
+
+}

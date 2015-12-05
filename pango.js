@@ -43,7 +43,6 @@ function pLoad(map){
       //adds to three.js scene
       scene.add(map.entities[pObj].threeObj);
       map.entities[pObj].threeSyncTransform();
-
       //recurses through object's children
       loadChildren(map.entities[pObj]);
     }
@@ -65,6 +64,16 @@ function loadChildren(pObj){
     }
   }
 }
+function loadObj(pObj){
+  if(pObj.threeObj){
+    pObj.threeSyncTransform();
+  }
+  if(pObj.tickFunctionString){
+    eval("pObj.tickFunction=function(){"+tickFunctionString+"};");
+  }
+  loadChildren(pObj);
+}
+
 function pLoop(){
 
   requestAnimationFrame(pLoop);
@@ -77,7 +86,7 @@ function pLoop(){
           mapsLoaded[map].entities[ent].tickFunction();
         }
         //TODO: implement tick functions for children
-      //if ()
+        //if ()
       }
     }
   }
@@ -109,6 +118,22 @@ function pObject(options){
   //in editor, are children not minimized on scene graph
   this.threeObj=options.threeObj||undefined;
   //object in three.js
+  this.translate=function(pos,rot){
+    this.threeObj.translateX( pos[0] );
+    this.threeObj.translateY( pos[2] );
+    this.threeObj.translateZ( pos[1] );
+
+    this.pos[0]=this.threeObj.position.x;
+    this.pos[2]=this.threeObj.position.y;
+    this.pos[1]=this.threeObj.position.z;
+
+    if(rot){
+        this.rot[0]+=rot[0];
+        this.rot[1]+=rot[1];
+        this.rot[2]+=rot[2];
+        this.threeSyncTransform();
+    }
+  }
   this.move=function(pos,rot){
     this.pos[0]+=pos[0];
     this.pos[2]+=pos[2];
